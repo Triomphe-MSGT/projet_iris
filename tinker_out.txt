@@ -1,0 +1,1 @@
+id,user_id,title,description,price_cfa,location,coordinates,status,image_path,created_at,updated_at
