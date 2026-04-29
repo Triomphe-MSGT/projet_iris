@@ -5,8 +5,6 @@ name: terrainvente
 env: docker
 plan: free
 
-Commande pour migrer la DB et lancer le serveur Apache
-
 dockerCommand: "php artisan migrate --force && apache2-foreground"
 
 envVars:
