@@ -11,7 +11,29 @@
     <link href="https://fonts.bunny.net/css?family=Instrument-sans:400,500,600,700,800,900&display=swap" rel="stylesheet" />
 
     <!-- Scripts / Styles -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Scripts / Styles -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    
+    <!-- Alpine.js & Axios (CDNs) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        window.axios = axios;
+        window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.getElementById('nav-links');
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+        });
+    </script>
 </head>
 <body class="antialiased">
 
