@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         \Illuminate\Support\Facades\Gate::define('admin-access', function (\App\Models\User $user) {
-            return $user->email === 'admin@iris.com';
+            return $user->email === 'adminiris@gmail.com';
         });
     }
 }

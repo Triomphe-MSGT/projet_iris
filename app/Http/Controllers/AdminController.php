@@ -16,7 +16,7 @@ class AdminController extends Controller
     {
         // Récupère tous les utilisateurs sauf l'admin lui-même (sauf si on veut aussi le lister)
         // On charge aussi le nombre de terrains pour l'affichage
-        $users = User::withCount('lands')->where('email', '!=', 'admin@iris.com')->latest()->get();
+        $users = User::withCount('lands')->where('email', '!=', 'adminiris@gmail.com')->latest()->get();
         $totalLands = Land::count();
         
         return view('admin.dashboard', compact('users', 'totalLands'));
@@ -28,7 +28,7 @@ class AdminController extends Controller
     public function destroyUser(User $user)
     {
         // Empêche l'admin de se supprimer lui-même par inadvertance
-        if ($user->email === 'admin@iris.com') {
+        if ($user->email === 'adminiris@gmail.com') {
             return back()->with('error', 'Impossible de supprimer cet administrateur.');
         }
 
