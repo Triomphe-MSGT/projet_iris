@@ -40,7 +40,7 @@
                 <label for="remember_me" style="font-size: 0.875rem; color: var(--text-muted); cursor: pointer;">Se souvenir de moi</label>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <div class="form-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}" style="font-size: 0.875rem; color: var(--primary); text-decoration: none;">
                         Mot de passe oublié ?

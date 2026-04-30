@@ -65,14 +65,14 @@
         <div class="section-header">
             <div>
                 <span class="section-tag">Parcourir</span>
-                <h2 style="font-size: 2.5rem; font-weight: 800;">Terrains à la Une</h2>
+                <h2 class="section-title">Terrains à la Une</h2>
             </div>
-            <p style="color: var(--text-muted); max-width: 400px;">Découvrez notre sélection de parcelles disponibles immédiatement dans les meilleurs quartiers de Dschang.</p>
+            <p class="section-desc">Découvrez notre sélection de parcelles disponibles immédiatement dans les meilleurs quartiers de Dschang.</p>
         </div>
 
         <!-- SEARCH BAR -->
-        <div class="card card-body" style="margin-bottom: 3rem; padding: 1.5rem;">
-            <form action="{{ route('lands.index') }}#catalog" method="GET" style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end;">
+        <div class="search-bar-wrap">
+            <form action="{{ route('lands.index') }}#catalog" method="GET" class="search-form">
                 <div style="flex: 1; min-width: 250px;">
                     <label for="q" class="form-label" style="font-size: 0.85rem; color: var(--text-muted);">Recherche libre</label>
                     <input type="text" name="q" id="q" class="form-input" value="{{ request('q') }}" placeholder="Ex: Foto, 500m2, titre foncier..." style="padding: 0.75rem;">
@@ -83,12 +83,12 @@
                     <input type="number" name="max_price" id="max_price" class="form-input" value="{{ request('max_price') }}" placeholder="Ex: 5000000" style="padding: 0.75rem;">
                 </div>
                 
-                <div style="display: flex; gap: 0.5rem;">
-                    <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem; height: 44px;">
+                <div class="search-btns">
+                    <button type="submit" class="btn btn-primary">
                         Rechercher
                     </button>
                     @if(request()->has('q') || request()->has('max_price'))
-                        <a href="{{ route('lands.index') }}#catalog" class="btn btn-outline" style="padding: 0.75rem 1rem; height: 44px; display: flex; align-items: center; justify-content: center;">
+                        <a href="{{ route('lands.index') }}#catalog" class="btn btn-outline reset-btn">
                             ✖
                         </a>
                     @endif

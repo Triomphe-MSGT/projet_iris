@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+            <div class="form-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
                 <a href="{{ route('login') }}" style="font-size: 0.875rem; color: var(--primary); text-decoration: none;">
                     Déjà inscrit ?
                 </a>
