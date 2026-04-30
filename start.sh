@@ -1,4 +1,11 @@
 #!/bin/bash
 
+echo "Starting app..."
+
+php artisan config:clear
+
+php artisan cache:clear || true
+
 php artisan migrate --force || true
-apache2-foreground
+
+exec apache2-foreground

@@ -6,33 +6,29 @@ RUN apt-get update && apt-get install -y \
     libonig-dev libxml2-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure gd \
-    --with-freetype \
-    --with-jpeg
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
 RUN docker-php-ext-install \
     pdo pdo_mysql pdo_pgsql \
-    mbstring exif pcntl bcmath gd \
-    zip
+    mbstring exif pcntl bcmath gd zip
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV PORT=10000
+
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/sites-available/*.conf \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
+
+RUN sed -i 's/80/${PORT}/g' /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 COPY . .
 
-RUN cp .env.example .env || true
 
-RUN composer install \
-    --no-dev \
-    --optimize-autoloader \
-    --no-interaction \
-    --no-scripts
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
 RUN php artisan storage:link || true
 
@@ -40,7 +36,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache && \
     chmod -R 775 storage bootstrap/cache
 
 COPY start.sh /start.sh
-RUN chmod +x /start.sh    
+RUN chmod +x /start.sh
 
 EXPOSE 10000
 
