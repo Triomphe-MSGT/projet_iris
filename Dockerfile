@@ -39,6 +39,9 @@ RUN php artisan storage:link || true
 RUN chown -R www-data:www-data storage bootstrap/cache && \
     chmod -R 775 storage bootstrap/cache
 
+COPY start.sh /start.sh
+RUN chmod +x /start.sh    
+
 EXPOSE 10000
 
-CMD ["apache2-foreground"]
+CMD ["/start.sh"]

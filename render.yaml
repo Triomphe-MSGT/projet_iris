@@ -3,7 +3,7 @@ services:
     name: terrainvente
     env: docker
     plan: free
-    dockerCommand: "php artisan migrate --force || true && apache2-foreground"
+    dockerCommand: "/start.sh"
 
     envVars:
       - key: APP_NAME
