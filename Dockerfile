@@ -2,16 +2,18 @@ FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
     libpng-dev libjpeg-dev libfreetype6-dev \
-    libpq-dev zip unzip git nodejs npm \
+    libpq-dev libzip-dev zip unzip git nodejs npm \
     libonig-dev libxml2-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg
 
 RUN docker-php-ext-install \
     pdo pdo_mysql pdo_pgsql \
     mbstring exif pcntl bcmath gd \
-    fileinfo zip
-
-RUN a2enmod rewrite headers
+    zip
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
@@ -24,7 +26,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# 🔥 IMPORTANT
+RUN cp .env.example .env || true
+
+RUN composer install \
+    --no-dev \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-scripts
+
+RUN php artisan key:generate || true
+RUN php artisan package:discover
 
 RUN npm install && npm run build && rm -rf node_modules
 
