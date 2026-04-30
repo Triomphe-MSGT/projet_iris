@@ -1,11 +1,12 @@
 #!/bin/bash
 
-echo "Starting app..."
+echo "Starting Laravel..."
 
 php artisan config:clear
-
-php artisan cache:clear || true
+php artisan cache:clear
 
 php artisan migrate --force || true
+
+php artisan config:cache
 
 exec apache2-foreground
