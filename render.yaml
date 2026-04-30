@@ -1,58 +1,71 @@
 services:
+  - type: web
+    name: terrainvente
+    env: docker
+    plan: free
+    dockerCommand: "php artisan migrate --force || true && apache2-foreground"
 
-type: web
-name: terrainvente
-env: docker
-plan: free
-dockerCommand: "php artisan migrate --force && apache2-foreground"
-envVars:
+    envVars:
+      - key: APP_NAME
+        value: TerrainVente
 
-key: APP_NAME
-value: TerrainVente
+      - key: APP_ENV
+        value: production
 
-key: APP_ENV
-value: production
+      - key: APP_KEY
+        generateValue: true
 
-key: APP_KEY
-generateValue: true
+      - key: APP_DEBUG
+        value: false
 
-key: APP_DEBUG
-value: false
+      - key: LOG_CHANNEL
+        value: stderr
 
-key: LOG_CHANNEL
-value: stderr
+      - key: APP_URL
+        value: https://terrainvente.onrender.com
 
-key: DB_CONNECTION
-value: pgsql
+      - key: DB_CONNECTION
+        value: pgsql
 
-key: DB_HOST
-fromDatabase:
-name: terrainvente-db
-property: host
+      - key: DB_SSLMODE
+        value: require
 
-key: DB_PORT
-fromDatabase:
-name: terrainvente-db
-property: port
+      - key: DB_HOST
+        fromDatabase:
+          name: terrainvente-db
+          property: host
 
-key: DB_DATABASE
-fromDatabase:
-name: terrainvente-db
-property: database
+      - key: DB_PORT
+        fromDatabase:
+          name: terrainvente-db
+          property: port
 
-key: DB_USERNAME
-fromDatabase:
-name: terrainvente-db
-property: user
+      - key: DB_DATABASE
+        fromDatabase:
+          name: terrainvente-db
+          property: database
 
-key: DB_PASSWORD
-fromDatabase:
-name: terrainvente-db
-property: password
+      - key: DB_USERNAME
+        fromDatabase:
+          name: terrainvente-db
+          property: user
+
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: terrainvente-db
+          property: password
+
+      - key: CACHE_DRIVER
+        value: file
+
+      - key: SESSION_DRIVER
+        value: file
+
+      - key: QUEUE_CONNECTION
+        value: sync
 
 databases:
-
-name: terrainvente-db
-databaseName: terrainvente
-user: terrain_user
-plan: free
+  - name: terrainvente-db
+    databaseName: terrainvente
+    user: terrain_user
+    plan: free
