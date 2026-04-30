@@ -26,7 +26,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
-# 🔥 IMPORTANT
 RUN cp .env.example .env || true
 
 RUN composer install \
@@ -35,12 +34,7 @@ RUN composer install \
     --no-interaction \
     --no-scripts
 
-RUN php artisan key:generate || true
-RUN php artisan package:discover
-
-
 RUN php artisan storage:link || true
-RUN php artisan config:cache
 
 RUN chown -R www-data:www-data storage bootstrap/cache && \
     chmod -R 775 storage bootstrap/cache
